@@ -22,13 +22,13 @@ include(${CPM_DOWNLOAD_LOCATION})
 CPMAddPackage(
   NAME fancy
   GITHUB_REPOSITORY KusStar/fancy
-  VERSION 0.2.0
+  VERSION 0.2.1
 )
 
 CPMAddPackage(
   NAME escaper
   GITHUB_REPOSITORY KusStar/escaper
-  VERSION 0.1.1
+  VERSION 0.1.2
 )
 
 # ---- Add source files ----
@@ -38,7 +38,7 @@ set(sources "${CMAKE_SOURCE_DIR}/source")
 include_directories(${headers} ${source})
 include_directories(${CMAKE_SOURCE_DIR}/jute)
 
-add_executable(wei ${sources}/main.cpp)
+add_executable(wei ${sources}/main.cpp ${CMAKE_SOURCE_DIR}/jute/jute.cpp)
 
 set_target_properties(wei PROPERTIES
   CXX_STANDARD 11
