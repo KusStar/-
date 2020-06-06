@@ -5,7 +5,7 @@
 ## 准备
 
 需要 `CMake` 及 `c++` 编译环境。
-目前仅在 POSIX 上运行过。
+目前仅在 MacOS 上运行过。
 
 **编译**
 
@@ -39,6 +39,8 @@ make run
 ## 鸣谢
 
 - [中文诗词](https://github.com/chinese-poetry/chinese-poetry)
+
+- [jute](https://github.com/amir-s/jute)
 
 - [CPM.cmake](https://github.com/TheLartians/CPM.cmake)
 
