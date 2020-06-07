@@ -1,11 +1,42 @@
 #include <iostream>
 
+#include "utils.hpp"
 #include "wei.hpp"
+
+using namespace std;
 
 using namespace wei::impls;
 using namespace escaper;
-using namespace std;
 using wei::select_options;
+
+void run(jute::jValue& v) {
+    select_options options = {"诗经", "搜索", "历史", "帮助", "退出"};
+
+    for (;;) {
+        string res = select(APP_NAME, options);
+
+        if (res == options[0]) {
+            show_all(v);
+        }
+
+        if (res == options[1]) {
+            search(v);
+            cout << "\n\n";
+        }
+
+        if (res == options[2]) {
+            cout << "\n\n";
+        }
+
+        if (res == options[3]) {
+            help();
+        }
+
+        if (res == options[4]) {
+            exit(0);
+        }
+    }
+}
 
 int main() {
     bool is_handle_console_success = HandleConsole();
@@ -19,34 +50,9 @@ int main() {
     jute::jValue v = loadData();
 
     cout << erase::lines(1) << "载入成功……"
-         << "\n\n";
+         << "\n";
 
-    select_options options = {"诗经", "搜索", "历史", "帮助", "退出"};
-
-    for (;;) {
-        string res = select(APP_NAME, options);
-
-        if (res == options[0]) {
-            show_all(v);
-        }
-
-        if (res == options[1]) {
-            search();
-            cout << "\n\n";
-        }
-
-        if (res == options[2]) {
-            cout << "\n\n";
-        }
-
-        if (res == options[3]) {
-            help();
-        }
-
-        if (res == options[4]) {
-            break;
-        }
-    }
+    run(v);
 
     return 0;
 }
