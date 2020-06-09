@@ -28,7 +28,7 @@ CPMAddPackage(
 CPMAddPackage(
   NAME escaper
   GITHUB_REPOSITORY KusStar/escaper
-  VERSION 0.1.2
+  VERSION 0.1.3
 )
 
 # ---- Add source files ----
