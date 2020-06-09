@@ -8,10 +8,13 @@
 #include "jute.h"
 
 class Poem {
+    typedef std::string String;
+    typedef std::vector<String> Content;
+
 public:
-    Poem(const std::string& title, const std::string& chapter,
-         const std::string& section, const std::vector<std::string>& content,
-         const std::string& pinyin_title, const std::string& pinyin_content)
+    Poem(const String& title, const String& chapter,
+         const String& section, const Content& content,
+         const String& pinyin_title, const String& pinyin_content)
         : title(title),
           chapter(chapter),
           section(section),
@@ -21,12 +24,12 @@ public:
 
     static Poem create(jute::jValue cur);
 
-    std::string title;
-    std::string chapter;
-    std::string section;
-    std::string pinyin_title;
-    std::string pinyin_content;
-    std::vector<std::string> content;
+    String title;
+    String chapter;
+    String section;
+    String pinyin_title;
+    String pinyin_content;
+    Content content;
 };
 
 inline Poem Poem::create(jute::jValue cur) {
