@@ -11,7 +11,7 @@
 // Enable VTMode on windows
 // https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences
 #if IS_WINDOWS
-bool EnableVTMode() {
+inline bool EnableVTMode() {
     // Set output mode to handle virtual terminal sequences
     HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
     if (hOut == INVALID_HANDLE_VALUE) {
@@ -29,7 +29,7 @@ bool EnableVTMode() {
     }
     return true;
 }
-bool HandleConsole() {
+inline bool HandleConsole() {
     bool fSuccess = EnableVTMode();
     if (!fSuccess) {
         std::cout << "Unable to enter VT processing mode. Quitting."
@@ -45,10 +45,10 @@ bool HandleConsole() {
     return true;
 }
 #else
-bool HandleConsole() { return true; }
+inline bool HandleConsole() { return true; }
 #endif
 
-wei::Poems loadData() {
+inline wei::Poems loadData() {
     std::ifstream in("shijing.json");
     std::string str = "";
     std::string tmp;

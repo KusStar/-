@@ -7,7 +7,7 @@
 namespace wei {
     namespace impls {
 
-        void search(const Poems& poems) {
+        inline void search(const Poems& poems) {
             cout << "\n" << detail::question_str("搜索");
 
             string result;

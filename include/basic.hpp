@@ -55,44 +55,42 @@ namespace wei {
 
     namespace detail {
 
-        fancy::Fancy f;
-
-        string highlight_str(const string& text) {
+        inline string highlight_str(const string& text) {
             return fancy_str(text, Attribute::Reset, Attribute::Cyan);
         }
 
-        string question_str(const string& text) {
+        inline string question_str(const string& text) {
             return highlight_str(symbols::QUESTION_MARK) + " " + text + " " +
                    symbols::ARROW_RIGHT + " ";
         }
 
-        string answer_str(const string& text) {
+        inline string answer_str(const string& text) {
             return highlight_str(symbols::ARROW_RIGHT) + " " + text;
         }
 
-        bool is_valid_str(char c) { return c >= '0' && c <= 'z'; }
+        inline bool is_valid_str(char c) { return c >= '0' && c <= 'z'; }
 
-        template <typename... Args>
-        string compose_str(const Args&... args) {
+        template <typename... Arg>
+        inline string compose_str(const Arg&... arg) {
             std::ostringstream os;
             using List = int[];
-            (void)List{0, (os << args, 0)...};
+            (void)List{0, (os << arg, 0)...};
             return os.str();
         }
 
-        void draw_poem(const Poem& poem, size_t& len, int offset) {
+        inline void draw_poem(const Poem& poem, size_t& len, int offset) {
             cout << erase::line_end;
 
             cout << "\n\n";
             cout << std::setw(10) << " ";
-            cout << (f | Attribute::Cyan);
-            cout << "  [" << offset + 1 << "] ";
+            cout << fancy_str(compose_str("  [", offset + 1, "] "),
+                              Attribute::Reset, Attribute::Cyan);
 
-            cout << (f | Attribute::Yellow);
-            cout << poem.title;
-            cout << symbols::DOT << poem.chapter;
-            cout << symbols::DOT << poem.section;
-            cout << fancy::ending;
+            cout << fancy_str(
+                compose_str(poem.title, symbols::DOT, poem.chapter,
+                            symbols::DOT, poem.section),
+                Attribute::Reset, Attribute::Yellow);
+
             cout << "\n\n";
             len += 4;
 

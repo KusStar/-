@@ -7,7 +7,7 @@
 namespace wei {
     namespace impls {
 
-        void help() {
+        inline void help() {
             cout << "\n";
             cout << "操作指南"
                  << "\n";

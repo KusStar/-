@@ -7,7 +7,7 @@
 namespace wei {
     namespace impls {
 
-        void show(const Poems& poems) {
+        inline void show(const Poems& poems) {
             cout << "\n";
 
             const int max_index = poems.size() - 1;
