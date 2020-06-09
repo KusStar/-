@@ -6,6 +6,7 @@
 
 namespace wei {
     namespace impls {
+
         string select(const string& message, const select_options& options) {
             auto mark = [&](int current, int index) -> string {
                 return current == index

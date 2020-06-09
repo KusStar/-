@@ -2,9 +2,8 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#include "basic.hpp"
 #include "jute.h"
-
-#include "escaper.hpp"
 
 #define APP_NAME "薇"
 #define APP_VERSION "0.1.0"
@@ -49,12 +48,19 @@ bool HandleConsole() {
 bool HandleConsole() { return true; }
 #endif
 
-jute::jValue loadData() {
+wei::Poems loadData() {
     std::ifstream in("shijing.json");
     std::string str = "";
     std::string tmp;
     while (getline(in, tmp)) str += tmp;
-    return jute::parser::parse(str);
+    jute::jValue v = jute::parser::parse(std::move(str));
+
+    wei::Poems poems;
+    for (size_t i = 0; i < v.size(); i++) {
+        Poem poem = Poem::create(v[i]);
+        poems.push_back(std::move(poem));
+    }
+    return poems;
 }
 
-#endif // __UTILS_H__
+#endif  // __UTILS_H__

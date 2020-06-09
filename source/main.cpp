@@ -6,33 +6,36 @@
 using namespace std;
 
 using namespace wei::impls;
-using namespace escaper;
+using namespace wei::constants;
+using wei::Poems;
 using wei::select_options;
 
-void run(jute::jValue& v) {
-    select_options options = {"诗经", "搜索", "历史", "帮助", "退出"};
+void run(const Poems& poems) {
+    select_options options = {
+        EXPLORE, SEARCH, HISTORY, HELP, QUIT,
+    };
 
     for (;;) {
         string res = select(APP_NAME, options);
 
-        if (res == options[0]) {
-            show_all(v);
+        if (res == EXPLORE) {
+            show(poems);
         }
 
-        if (res == options[1]) {
-            search(v);
+        if (res == SEARCH) {
+            search(poems);
             cout << "\n\n";
         }
 
-        if (res == options[2]) {
+        if (res == HISTORY) {
             cout << "\n\n";
         }
 
-        if (res == options[3]) {
+        if (res == HELP) {
             help();
         }
 
-        if (res == options[4]) {
+        if (res == QUIT) {
             exit(0);
         }
     }
@@ -47,12 +50,12 @@ int main() {
     cout << "载入数据中……"
          << "\n";
 
-    jute::jValue v = loadData();
+    Poems poems = loadData();
 
-    cout << erase::lines(1) << "载入成功……"
+    cout << escaper::erase::lines(1) << "载入成功……"
          << "\n";
 
-    run(v);
+    run(poems);
 
     return 0;
 }
