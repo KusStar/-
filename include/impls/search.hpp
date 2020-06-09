@@ -13,7 +13,10 @@ namespace wei {
             string result;
             std::vector<size_t> matched;
             size_t len = 0;
+
+            // 当前选择条目
             int selected_index = 0;
+            // 当前偏远量，用于分页
             int offset = 0;
 
             auto mark = [&](size_t current, size_t index) -> string {
@@ -69,6 +72,7 @@ namespace wei {
                 }
 
                 cout << erase::line;
+                cout << detail::highlight_str(">") << " ";
                 cout << std::left << std::setw(10)
                      << detail::compose_str(offset + 1, " / ",
                                             matched.size() / 5 + 1);
@@ -107,29 +111,26 @@ namespace wei {
                                 selected_index -= 1;
                                 if (selected_index < 0)
                                     selected_index = len - 1;
-                                c = 0;
                                 break;
                             case KEY_DOWN_ARROW:
                                 selected_index += 1;
                                 if (selected_index > len - 1)
                                     selected_index = 0;
-                                c = 0;
                                 break;
                             case KEY_LEFT_ARROW:
                                 offset -= 1;
                                 if (offset < 0) {
                                     offset = matched.size() / 5;
                                 }
-                                c = 0;
                                 break;
                             case KEY_RIGHT_ARROW:
                                 offset += 1;
                                 if (offset > matched.size() / 5) {
                                     offset = 0;
                                 }
-                                c = 0;
                                 break;
                         }
+                        c = 0;
                         draw(c);
                         break;
                     default:

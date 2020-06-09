@@ -31,7 +31,8 @@ namespace wei {
                     case KEY_ENTER:
                     case KEY_SPACE:
                         return options.at(index);
-                        break;
+                    case KEY_ESC:
+                        return options.at(options.size() - 1);
                     case KEY_SPEC:
                         switch (c = getch()) {
                             case KEY_UP_ARROW:
@@ -72,5 +73,4 @@ namespace wei {
 
 }  // namespace wei
 
-
-#endif // __SELECT_H
+#endif  // __SELECT_H
