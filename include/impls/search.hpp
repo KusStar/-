@@ -27,6 +27,9 @@ namespace wei {
             };
 
             auto get_current_poem_index = [&](size_t i) {
+                // iff overflow return invalid value
+                if (matched.size() <= 0)
+                    return poems.size();
                 return matched[i + offset * 5];
             };
 
@@ -88,6 +91,23 @@ namespace wei {
                 cout << cursor::left << cursor::forward(9 + result.size());
             };
 
+            auto go_to_show = [&]() {
+                auto target_index = get_current_poem_index(selected_index);
+                // do nothing iff target_index is invalid
+                if (target_index >= poems.size()) {
+                    return;
+                }
+
+                cout << cursor::down(len) << "\n";
+                // 进入 explore
+                explore(poems, target_index);
+                // 退出后重新进入搜索
+                cout << detail::question_str("搜索");
+                cout << cursor::left << cursor::forward(9);
+                cout << result;
+                draw(0);
+            };
+
             for (;;) {
                 auto c = getch();
                 switch (c) {
@@ -105,11 +125,8 @@ namespace wei {
                         result += " ";
                         break;
                     case KEY_ENTER:
-                        cout << cursor::down(len) << "\n";
-                        // 进入 show()
-                        show(poems, get_current_poem_index(selected_index));
-                        // 退出后重新进入搜索
-                        return search(poems);
+                        go_to_show();
+                        break;
                     case KEY_ESC:
                         cout << cursor::down(len + 2) << erase::lines(len + 2);
                         return;
