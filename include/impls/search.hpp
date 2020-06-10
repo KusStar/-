@@ -160,8 +160,9 @@ namespace wei {
                         break;
                     default:
                         if (detail::is_valid_str(c)) {
-                            result += c;
+                            result += std::tolower(c);
                             offset = 0;
+                            selected_index = 0;
                             search_poem();
                         }
                         draw(c);

@@ -30,11 +30,14 @@ namespace wei {
     using Poems = std::vector<Poem>;
 
     namespace constants {
+        const string APP_NAME = "薇";
+        const string APP_VERSION = "0.1.0";
 
         const string EXPLORE = "探索";
         const string SEARCH = "搜索";
         const string HISTORY = "历史";
         const string HELP = "帮助";
+        const string ABOUT = "关于";
         const string QUIT = "退出";
 
     }  // namespace constants

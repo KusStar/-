@@ -12,7 +12,7 @@ using wei::select_options;
 
 void run(const Poems& poems) {
     select_options options = {
-        EXPLORE, SEARCH, HISTORY, HELP, QUIT,
+        EXPLORE, SEARCH, HISTORY, HELP, ABOUT, QUIT,
     };
 
     for (;;) {
@@ -33,6 +33,10 @@ void run(const Poems& poems) {
 
         if (res == HELP) {
             help();
+        }
+
+        if (res == ABOUT) {
+            about();
         }
 
         if (res == QUIT) {

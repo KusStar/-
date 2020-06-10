@@ -5,9 +5,6 @@
 #include "basic.hpp"
 #include "jute.h"
 
-#define APP_NAME "薇"
-#define APP_VERSION "0.1.0"
-
 // Enable VTMode on windows
 // https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences
 #if IS_WINDOWS

@@ -37,16 +37,16 @@ namespace wei {
                     case KEY_SPEC:
                         switch (c = getch()) {
                             case KEY_UP_ARROW:
-                                c = 'j';
-                                break;
-                            case KEY_DOWN_ARROW:
-                                c = 'k';
-                                break;
-                            case KEY_LEFT_ARROW:
                                 c = 'h';
                                 break;
-                            case KEY_RIGHT_ARROW:
+                            case KEY_DOWN_ARROW:
                                 c = 'l';
+                                break;
+                            case KEY_LEFT_ARROW:
+                                c = 'j';
+                                break;
+                            case KEY_RIGHT_ARROW:
+                                c = 'k';
                                 break;
                         }
                     default:

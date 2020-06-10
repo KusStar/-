@@ -12,9 +12,9 @@ class Poem {
     typedef std::vector<String> Content;
 
 public:
-    Poem(const String& title, const String& chapter,
-         const String& section, const Content& content,
-         const String& pinyin_title, const String& pinyin_content)
+    Poem(const String& title, const String& chapter, const String& section,
+         const Content& content, const String& pinyin_title,
+         const String& pinyin_content)
         : title(title),
           chapter(chapter),
           section(section),

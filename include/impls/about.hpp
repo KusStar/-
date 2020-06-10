@@ -1,16 +1,29 @@
 #pragma once
-#ifndef __HELP_H
-#define __HELP_H
+#ifndef __ABOUT_H
+#define __ABOUT_H
 
 #include "basic.hpp"
 
 namespace wei {
     namespace impls {
 
-        inline void help() {
+        inline void about() {
+            using namespace constants;
+            using namespace symbols;
             cout << "\n";
-            cout << "操作指南"
-                 << "\n";
+            const std::vector<string> infos = {
+                "© [" + APP_NAME + "] v" + APP_VERSION,
+                RADIO_OFF + " 开发成员",
+                RADIO_ON + " " + MEMBERS[0],
+                RADIO_ON + " " + MEMBERS[1],
+                RADIO_ON + " " + MEMBERS[2],
+                "- 2020年6月10号"
+            };
+
+            for (const auto& info : infos) {
+                cout << info << "\n";
+            }
+
             cout << "按 q 返回上一页";
 
             for (;;) {
@@ -58,4 +71,4 @@ namespace wei {
 
 }  // namespace wei
 
-#endif  // __HELP_H
+#endif  // __ABOUT_H
