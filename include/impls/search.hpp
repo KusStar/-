@@ -6,7 +6,7 @@
 
 namespace wei {
     namespace impls {
-        void show(const Poems&, const size_t);
+        void explore(const Poems&, const size_t);
 
         inline void search(const Poems& poems) {
             cout << detail::question_str("搜索");

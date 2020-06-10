@@ -19,7 +19,7 @@ void run(const Poems& poems) {
         string res = select(APP_NAME, options);
 
         if (res == EXPLORE) {
-            show(poems);
+            explore(poems);
         }
 
         if (res == SEARCH) {

@@ -7,7 +7,7 @@
 namespace wei {
     namespace impls {
 
-        inline void show(const Poems& poems, const size_t default_index = 0) {
+        inline void explore(const Poems& poems, const size_t default_index = 0) {
             cout << "\n";
             Brush brush;
 

@@ -6,6 +6,6 @@
 #include "impls/help.hpp"
 #include "impls/search.hpp"
 #include "impls/select.hpp"
-#include "impls/show.hpp"
+#include "impls/explore.hpp"
 
 #endif  // __WEI_H__
