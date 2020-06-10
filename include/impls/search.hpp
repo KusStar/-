@@ -6,9 +6,10 @@
 
 namespace wei {
     namespace impls {
+        void show(const Poems&, const size_t);
 
         inline void search(const Poems& poems) {
-            cout << "\n" << detail::question_str("搜索");
+            cout << detail::question_str("搜索");
 
             string result;
             std::vector<size_t> matched;
@@ -23,6 +24,10 @@ namespace wei {
                 return current == index
                            ? detail::highlight_str(symbols::RADIO_ON)
                            : symbols::RADIO_OFF;
+            };
+
+            auto get_current_poem_index = [&](size_t i) {
+                return matched[i + offset * 5];
             };
 
             // 匹配诗词
@@ -60,7 +65,7 @@ namespace wei {
                 len = temp_len > 5 ? 5 : temp_len;
 
                 for (size_t i = 0; i < len; i++) {
-                    auto cur_index = matched[i + offset * 5];
+                    auto cur_index = get_current_poem_index(i);
                     auto poem = poems[cur_index];
                     const string title = poem.title + symbols::DOT +
                                          poem.chapter + symbols::DOT +
@@ -100,11 +105,14 @@ namespace wei {
                         result += " ";
                         break;
                     case KEY_ENTER:
-                        break;
+                        cout << cursor::down(len) << "\n";
+                        // 进入 show()
+                        show(poems, get_current_poem_index(selected_index));
+                        // 退出后重新进入搜索
+                        return search(poems);
                     case KEY_ESC:
                         cout << cursor::down(len + 2) << erase::lines(len + 2);
                         return;
-                        break;
                     case KEY_SPEC:
                         switch (c = getch()) {
                             case KEY_UP_ARROW:

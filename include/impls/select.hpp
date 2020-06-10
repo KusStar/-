@@ -7,7 +7,10 @@
 namespace wei {
     namespace impls {
 
-        inline string select(const string& message, const select_options& options) {
+        inline string select(const string& message,
+                             const select_options& options) {
+            Brush brush;
+
             auto mark = [&](int current, int index) -> string {
                 return current == index
                            ? detail::highlight_str(symbols::RADIO_ON)
@@ -22,8 +25,10 @@ namespace wei {
             for (;;) {
                 for (int i = 0; i < len; i++) {
                     string option_str = mark(index, i) + " " + options.at(i);
-                    cout << option_str << "\n";
+                    brush << option_str << "\n";
                 }
+
+                brush.draw();
 
                 int c = getch();
 
@@ -59,13 +64,12 @@ namespace wei {
                                     index = 0;
                                 break;
                             case 'q':
-                                cout << cursor::show;
                                 cout << "\n";
                                 return options.at(len - 1);
                         }
                         break;
                 }
-                cout << erase::lines(len);
+                brush.flush();
             }
         }
 

@@ -7,32 +7,33 @@
 namespace wei {
     namespace impls {
 
-        inline void show(const Poems& poems) {
+        inline void show(const Poems& poems, const size_t default_index = 0) {
             cout << "\n";
+            Brush brush;
 
             const int max_index = poems.size() - 1;
 
-            int offset = 0;
+            int offset = static_cast<int>(default_index);
             // 打印 offset 对应的诗, 并返回需要的行数
-            auto draw = [&]() {
-                size_t len = 0;
-                auto cur = poems[offset];
-                detail::draw_poem(cur, len, offset);
-                cout << "\n";
-                len += 1;
+            auto prepare = [&]() {
+                auto poem = poems[offset];
 
-                return len;
+                detail::brush_fill_poem(brush, poem, offset);
+
+                brush << "\n";
             };
 
             for (;;) {
-                auto len = draw();
+                prepare();
+
+                brush.draw();
 
                 auto c = getch();
+
                 switch (c) {
                     case KEY_ESC:
                         cout << "\n";
                         return;
-                        break;
                     case KEY_SPEC:
                         switch (c = getch()) {
                             case KEY_UP_ARROW:
@@ -78,9 +79,7 @@ namespace wei {
                         }
                         break;
                 }
-
-                // 根据 len 来清除终端文字，以便显示下一首
-                cout << erase::lines(len);
+                brush.flush();
             }
         }
 

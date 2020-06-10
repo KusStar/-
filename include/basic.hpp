@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+#include "class/brush.hpp"
 #include "class/poem.hpp"
 #include "escaper.hpp"
 #include "fancy.hpp"
@@ -78,26 +79,20 @@ namespace wei {
             return os.str();
         }
 
-        inline void draw_poem(const Poem& poem, size_t& len, int offset) {
-            cout << erase::line_end;
+        inline void brush_fill_poem(Brush& brush, const Poem& poem,
+                                    int offset) {
+            brush << "\n\n ";
+            brush << fancy_str(detail::compose_str("  [", offset + 1, "] "),
+                               Attribute::Reset, Attribute::Cyan);
 
-            cout << "\n\n";
-            cout << std::setw(10) << " ";
-            cout << fancy_str(compose_str("  [", offset + 1, "] "),
-                              Attribute::Reset, Attribute::Cyan);
+            brush << fancy_str(poem.title + symbols::DOT + poem.chapter +
+                                   symbols::DOT + poem.section,
+                               Attribute::Reset, Attribute::Yellow);
 
-            cout << fancy_str(
-                compose_str(poem.title, symbols::DOT, poem.chapter,
-                            symbols::DOT, poem.section),
-                Attribute::Reset, Attribute::Yellow);
-
-            cout << "\n\n";
-            len += 4;
+            brush << "\n\n";
 
             for (auto line : poem.content) {
-                cout << std::setw(5) << " ";
-                cout << line << "\n\n";
-                len += 2;
+                brush << " " << line << "\n\n";
             }
         }
 
