@@ -43,6 +43,7 @@ inline std::vector<HistoryItem> Reader::get_all() {
         }
     }
 
+    std::reverse(items.begin(), items.end());
     return items;
 }
 
