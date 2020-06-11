@@ -53,6 +53,8 @@ inline wei::Poems loadData() {
     jute::jValue v = jute::parser::parse(std::move(str));
 
     wei::Poems poems;
+    poems.reserve(v.size());
+
     for (size_t i = 0; i < v.size(); i++) {
         Poem poem = Poem::create(v[i]);
         poems.push_back(std::move(poem));

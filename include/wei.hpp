@@ -6,6 +6,7 @@
 #include "impls/select.hpp"
 #include "impls/explore.hpp"
 #include "impls/search.hpp"
+#include "impls/history.hpp"
 #include "impls/about.hpp"
 #include "impls/help.hpp"
 

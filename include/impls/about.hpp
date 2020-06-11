@@ -10,21 +10,27 @@ namespace wei {
         inline void about() {
             using namespace constants;
             using namespace symbols;
-            cout << "\n";
+            using detail::bright_str;
+
             const std::vector<string> infos = {
-                "© [" + APP_NAME + "] v" + APP_VERSION,
+
+                bright_str("© [" + APP_NAME + "] v" + APP_VERSION, Attribute::Cyan),
                 RADIO_OFF + " 开发成员",
                 RADIO_ON + " " + MEMBERS[0],
                 RADIO_ON + " " + MEMBERS[1],
                 RADIO_ON + " " + MEMBERS[2],
-                "- 2020年6月10号"
+                bright_str(RADIO_OFF + " 2020年6月10号")
+
             };
+
+            cout << "\n";
 
             for (const auto& info : infos) {
                 cout << info << "\n";
             }
 
-            cout << "按 q 返回上一页";
+            cout << "\n"
+                 << bright_str("x", Attribute::Red) << " <q> 返回上一页 ";
 
             for (;;) {
                 auto c = getch();
@@ -59,7 +65,7 @@ namespace wei {
                                 cout << cursor::forward();
                                 break;
                             case 'q':
-                                cout << "\n";
+                                cout << "\n\n";
                                 return;
                         }
                         break;

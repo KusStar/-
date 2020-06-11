@@ -14,9 +14,10 @@ void run(const Poems& poems) {
     select_options options = {
         EXPLORE, SEARCH, HISTORY, HELP, ABOUT, QUIT,
     };
+    int index = 0;
 
     for (;;) {
-        string res = select(APP_NAME, options);
+        string res = select(APP_NAME, options, index);
 
         if (res == EXPLORE) {
             explore(poems);
@@ -24,11 +25,10 @@ void run(const Poems& poems) {
 
         if (res == SEARCH) {
             search(poems);
-            cout << "\n\n";
         }
 
         if (res == HISTORY) {
-            cout << "\n\n";
+            history(poems);
         }
 
         if (res == HELP) {

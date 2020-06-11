@@ -8,23 +8,17 @@ namespace wei {
     namespace impls {
 
         inline string select(const string& message,
-                             const select_options& options) {
+                             const select_options& options, int& index) {
             Brush brush;
 
-            auto mark = [&](int current, int index) -> string {
-                return current == index
-                           ? detail::highlight_str(symbols::RADIO_ON)
-                           : symbols::RADIO_OFF;
-            };
-
-            int index = 0;
             int len = options.size();
 
-            cout << detail::question_str(message) << "\n";
+            cout << detail::title_str(message, symbols::APP_ICON) << "\n";
 
             for (;;) {
                 for (int i = 0; i < len; i++) {
-                    string option_str = mark(index, i) + " " + options.at(i);
+                    string option_str =
+                        detail::mark_str(index, i) + " " + options.at(i);
                     brush << option_str << "\n";
                 }
 

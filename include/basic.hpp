@@ -11,6 +11,8 @@
 
 #include "class/brush.hpp"
 #include "class/poem.hpp"
+#include "class/reader.hpp"
+#include "class/writer.hpp"
 #include "escaper.hpp"
 #include "fancy.hpp"
 #include "jute.h"
@@ -40,6 +42,7 @@ namespace wei {
         const string ABOUT = "关于";
         const string QUIT = "退出";
 
+
     }  // namespace constants
     namespace symbols {
 
@@ -54,6 +57,8 @@ namespace wei {
         const string ARROW_RIGHT = "❯";
         const string QUESTION_MARK = "?";
         const string DOT = "·";
+        const string APP_ICON = "✾";
+        const string SEARCH_ICON = "⚘";
 
     }  // namespace symbols
 
@@ -63,14 +68,25 @@ namespace wei {
             return fancy_str(text, Attribute::Reset, Attribute::Cyan);
         }
 
-        inline string question_str(const string& text) {
-            return highlight_str(symbols::QUESTION_MARK) + " " + text + " " +
+        inline string bright_str(const string& text,
+                                 Attribute color = Attribute::Yellow) {
+            return fancy_str(text, color, Attribute::Bright);
+        }
+
+        inline string title_str(const string& text,
+                                const string& symbol = symbols::QUESTION_MARK) {
+            return highlight_str(symbol) + " " + text + " " +
                    symbols::ARROW_RIGHT + " ";
         }
 
         inline string answer_str(const string& text) {
             return highlight_str(symbols::ARROW_RIGHT) + " " + text;
         }
+
+        inline string mark_str(int current, int index) {
+            return current == index ? detail::highlight_str(symbols::RADIO_ON)
+                                    : symbols::RADIO_OFF;
+        };
 
         inline bool is_valid_str(char c) { return c >= '0' && c <= 'z'; }
 

@@ -9,7 +9,9 @@ namespace wei {
         void explore(const Poems&, const size_t);
 
         inline void search(const Poems& poems) {
-            cout << detail::question_str("搜索");
+            cout << "\n" << detail::title_str("搜索", symbols::SEARCH_ICON);
+
+            Writer writer;
 
             string result;
             std::vector<size_t> matched;
@@ -20,17 +22,16 @@ namespace wei {
             // 当前偏远量，用于分页
             int offset = 0;
 
-            auto mark = [&](size_t current, size_t index) -> string {
-                return current == index
-                           ? detail::highlight_str(symbols::RADIO_ON)
-                           : symbols::RADIO_OFF;
-            };
-
             auto get_current_poem_index = [&](size_t i) {
                 // iff overflow return invalid value
                 if (matched.size() <= 0)
                     return poems.size();
                 return matched[i + offset * 5];
+            };
+
+            auto get_poem_title = [&](const Poem& poem) {
+                return poem.title + symbols::DOT + poem.chapter + symbols::DOT +
+                       poem.section;
             };
 
             // 匹配诗词
@@ -70,11 +71,9 @@ namespace wei {
                 for (size_t i = 0; i < len; i++) {
                     auto cur_index = get_current_poem_index(i);
                     auto poem = poems[cur_index];
-                    const string title = poem.title + symbols::DOT +
-                                         poem.chapter + symbols::DOT +
-                                         poem.section;
 
-                    string cur_str = mark(selected_index, i) + " " + title;
+                    string cur_str = detail::mark_str(selected_index, i) + " " +
+                                     get_poem_title(poem);
 
                     cout << erase::line << cur_str << "\n";
                 }
@@ -101,8 +100,10 @@ namespace wei {
                 cout << cursor::down(len) << "\n";
                 // 进入 explore
                 explore(poems, target_index);
+
+                writer.put(target_index, get_poem_title(poems[target_index]));
                 // 退出后重新进入搜索
-                cout << detail::question_str("搜索");
+                cout << detail::title_str("搜索", symbols::SEARCH_ICON);
                 cout << cursor::left << cursor::forward(9);
                 cout << result;
                 draw(0);
@@ -128,7 +129,8 @@ namespace wei {
                         go_to_show();
                         break;
                     case KEY_ESC:
-                        cout << cursor::down(len + 2) << erase::lines(len + 2);
+                        cout << cursor::down(len + 2) << erase::lines(len + 2)
+                             << "\n\n";
                         return;
                     case KEY_SPEC:
                         switch (c = getch()) {
@@ -147,12 +149,15 @@ namespace wei {
                                 if (offset < 0) {
                                     offset = matched.size() / 5;
                                 }
+                                selected_index = 0;
                                 break;
                             case KEY_RIGHT_ARROW:
+
                                 offset += 1;
                                 if (offset > matched.size() / 5) {
                                     offset = 0;
                                 }
+                                selected_index = 0;
                                 break;
                         }
                         c = 0;
